@@ -16,20 +16,20 @@ def hospital():
 
     response = requests.request("GET", url, headers=headers, data = payload)
 
-    json_data = json.loads(response.text.encode('utf8'))
+    json_data_hospital = json.loads(response.text.encode('utf8'))
 
 #print(response.text.encode('utf8'))
 
     rotundaGuimarães = "Rotunda Hospital Guimaraes"
-    velocidadeAtual = json_data["flowSegmentData"]["currentSpeed"]
-    velocidadeFree = json_data["flowSegmentData"]["freeFlowSpeed"]
-    tempoviagemAtual = json_data["flowSegmentData"]["currentTravelTime"]
-    tempoviagemFree = json_data["flowSegmentData"]["freeFlowTravelTime"]
+    velocidadeAtualHospital = json_data_hospital["flowSegmentData"]["currentSpeed"]
+    velocidadeFreeHospital = json_data_hospital["flowSegmentData"]["freeFlowSpeed"]
+    tempoviagemAtualHospital = json_data_hospital["flowSegmentData"]["currentTravelTime"]
+    tempoviagemFreeHospital = json_data_hospital["flowSegmentData"]["freeFlowTravelTime"]
 
     myCursor = conn.cursor()
 
 #myCursor.execute("INSERT INTO heremap(NomeEstrada, VelocidadeAtual, VelocidadeFree, tempoviagemAtual, tempoviagemFree) VALUES ('Rotunda Hospital Guimaraes', 20, 30, 40, 50);")
-    myCursor.execute("INSERT INTO heremap(NomeEstrada, VelocidadeAtual, VelocidadeFree, tempoviagemAtual, tempoviagemFree) VALUES (%s, %s, %s, %s, %s)", (rotundaGuimarães, velocidadeAtual, velocidadeFree, tempoviagemAtual, tempoviagemFree))
+    myCursor.execute("INSERT INTO heremap(NomeEstrada, VelocidadeAtual, VelocidadeFree, tempoviagemAtual, tempoviagemFree) VALUES (%s, %s, %s, %s, %s)", (rotundaGuimarães, velocidadeAtualHospital, velocidadeFreeHospital, tempoviagemAtualHospital, tempoviagemFreeHospital))
     print("> Dados inseridos! -> " + rotundaGuimarães)
 
     conn.commit()
@@ -54,15 +54,15 @@ def circular():
     json_data_circular = json.loads(response.text.encode('utf8'))
 
     circularGuimarães = "Circular Urbana Guimaraes"
-    velocidadeAtualC = json_data_circular["flowSegmentData"]["currentSpeed"]
-    velocidadeFreeC = json_data_circular["flowSegmentData"]["freeFlowSpeed"]
-    tempoviagemAtualC = json_data_circular["flowSegmentData"]["currentTravelTime"]
-    tempoviagemFreeC = json_data_circular["flowSegmentData"]["freeFlowTravelTime"]
+    velocidadeAtualCircular = json_data_circular["flowSegmentData"]["currentSpeed"]
+    velocidadeFreeCircular = json_data_circular["flowSegmentData"]["freeFlowSpeed"]
+    tempoviagemAtualCircular = json_data_circular["flowSegmentData"]["currentTravelTime"]
+    tempoviagemFreeCircular = json_data_circular["flowSegmentData"]["freeFlowTravelTime"]
 
     myCursor = conn.cursor()
 
 #myCursor.execute("INSERT INTO heremap(NomeEstrada, VelocidadeAtual, VelocidadeFree, tempoviagemAtual, tempoviagemFree) VALUES ('Rotunda Hospital Guimaraes', 20, 30, 40, 50);")
-    myCursor.execute("INSERT INTO heremap(NomeEstrada, VelocidadeAtual, VelocidadeFree, tempoviagemAtual, tempoviagemFree) VALUES (%s, %s, %s, %s, %s)", (circularGuimarães, velocidadeAtualC, velocidadeFreeC, tempoviagemAtualC, tempoviagemFreeC))
+    myCursor.execute("INSERT INTO heremap(NomeEstrada, VelocidadeAtual, VelocidadeFree, tempoviagemAtual, tempoviagemFree) VALUES (%s, %s, %s, %s, %s)", (circularGuimarães, velocidadeAtualCircular, velocidadeFreeCircular, tempoviagemAtualCircular, tempoviagemFreeCircular))
     print("> Dados inseridos! -> " + circularGuimarães)
 
     conn.commit()

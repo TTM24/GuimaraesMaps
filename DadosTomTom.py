@@ -3,6 +3,7 @@ from flask import Flask
 import json
 import requests
 import pymysql
+from datetime import datetime
 
 conn = pymysql.connect(host="localhost", user="root", passwd="BENFICA07", db="guimaraesmap")
 
@@ -18,6 +19,9 @@ def hospital():
 
     json_data_hospital = json.loads(response.text.encode('utf8'))
 
+    now = datetime.now()
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+
 #print(response.text.encode('utf8'))
 
     rotundaGuimarães = "Rotunda Hospital Guimaraes"
@@ -29,8 +33,8 @@ def hospital():
     myCursor = conn.cursor()
 
 #myCursor.execute("INSERT INTO heremap(NomeEstrada, VelocidadeAtual, VelocidadeFree, tempoviagemAtual, tempoviagemFree) VALUES ('Rotunda Hospital Guimaraes', 20, 30, 40, 50);")
-    myCursor.execute("INSERT INTO heremap(NomeEstrada, VelocidadeAtual, VelocidadeFree, tempoviagemAtual, tempoviagemFree) VALUES (%s, %s, %s, %s, %s)", (rotundaGuimarães, velocidadeAtualHospital, velocidadeFreeHospital, tempoviagemAtualHospital, tempoviagemFreeHospital))
-    print("> Dados inseridos! -> " + rotundaGuimarães)
+    myCursor.execute("INSERT INTO heremap(NomeEstrada, VelocidadeAtual, VelocidadeFree, tempoviagemAtual, tempoviagemFree, horaRegisto) VALUES (%s, %s, %s, %s, %s, %s)", (rotundaGuimarães, velocidadeAtualHospital, velocidadeFreeHospital, tempoviagemAtualHospital, tempoviagemFreeHospital, dt_string))
+    print("> Dados inseridos! -> " + rotundaGuimarães + " " + dt_string)
 
     conn.commit()
     conn.rollback()
@@ -49,6 +53,11 @@ def circular():
 
     response = requests.request("GET", url, headers=headers, data = payload)
 
+    now = datetime.now()
+ 
+
+    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+
 #print(response.text.encode('utf8'))
 
     json_data_circular = json.loads(response.text.encode('utf8'))
@@ -62,8 +71,8 @@ def circular():
     myCursor = conn.cursor()
 
 #myCursor.execute("INSERT INTO heremap(NomeEstrada, VelocidadeAtual, VelocidadeFree, tempoviagemAtual, tempoviagemFree) VALUES ('Rotunda Hospital Guimaraes', 20, 30, 40, 50);")
-    myCursor.execute("INSERT INTO heremap(NomeEstrada, VelocidadeAtual, VelocidadeFree, tempoviagemAtual, tempoviagemFree) VALUES (%s, %s, %s, %s, %s)", (circularGuimarães, velocidadeAtualCircular, velocidadeFreeCircular, tempoviagemAtualCircular, tempoviagemFreeCircular))
-    print("> Dados inseridos! -> " + circularGuimarães)
+    myCursor.execute("INSERT INTO heremap(NomeEstrada, VelocidadeAtual, VelocidadeFree, tempoviagemAtual, tempoviagemFree, horaRegisto) VALUES (%s, %s, %s, %s, %s, %s)", (circularGuimarães, velocidadeAtualCircular, velocidadeFreeCircular, tempoviagemAtualCircular, tempoviagemFreeCircular, dt_string))
+    print("> Dados inseridos! -> " + circularGuimarães + " " + dt_string)
 
     conn.commit()
     conn.rollback()

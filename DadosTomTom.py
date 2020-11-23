@@ -3,6 +3,7 @@ from flask import Flask
 import json
 import requests
 import pymysql
+import math
 from datetime import datetime
 
 conn = pymysql.connect(host="localhost", user="root", passwd="BENFICA07", db="guimaraesmap")
@@ -10,7 +11,7 @@ conn = pymysql.connect(host="localhost", user="root", passwd="BENFICA07", db="gu
 def hospital():
 # Rotunda Hospital Guimarães
 
-    url = "https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=41.44159398,-8.30343568&key=WJgVtZpI5Q5lGFGbqNK1PU3J2N6OvDJY"
+    url = "https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=41.44087577,-8.30463195&key=WJgVtZpI5Q5lGFGbqNK1PU3J2N6OvDJY"
 
     payload = {}
     headers= {}
@@ -39,6 +40,32 @@ def hospital():
     conn.commit()
     conn.rollback()
     #conn.close()   
+
+    #potencia_ligeiro = 46 + 30*math.log10(30)
+    #print(potencia_ligeiro)
+
+    fluxo = 500
+    pesados = 4
+    EQ = 10 - 1
+
+    if velocidadeAtualHospital > 30:
+        velocidadeAtualHospital = velocidadeAtualHospital
+        #potencia_ligeiro = 46 + 30*math.log10(velocidadeAtualHospital) + 2
+        #print(potencia_ligeiro)
+    else:
+        velocidadeAtualHospital = 30
+        #print(potencia_ligeiro)
+
+    # C = 2 -- Rotunda
+    potencia_ligeiro = 46 + 30*math.log10(velocidadeAtualHospital) + 2
+
+    LW1 = (fluxo+fluxo*pesados*(EQ/100))/velocidadeAtualHospital
+    #print(LW1)
+
+    LW2 = potencia_ligeiro + 10*math.log10(LW1) - 30
+    print(LW2)
+
+    
 
 hospital()
 

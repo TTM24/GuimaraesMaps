@@ -21,7 +21,7 @@ def P241():
     now = datetime.now()
  
 
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 #print(response.text.encode('utf8'))
 
@@ -79,7 +79,7 @@ def P26():
     now = datetime.now()
  
 
-    dt_string = now.strftime("%d/%m/%Y %H:%M:%S")
+    dt_string = now.strftime("%d/%m/%Y %H:%M")
 
 #print(response.text.encode('utf8'))
 

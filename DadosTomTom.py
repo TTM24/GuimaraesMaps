@@ -178,9 +178,67 @@ def P261():
 
     conn.commit()
     conn.rollback()
-    conn.close() 
+    #conn.close() 
 
 P261()
+
+def P25():
+# P25 - Rua Antonio da Costa Guimarães
+
+    url = "https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=41.42868663,-8.29874396&key=WJgVtZpI5Q5lGFGbqNK1PU3J2N6OvDJY"
+
+    payload = {}
+    headers= {}
+
+    response = requests.request("GET", url, headers=headers, data = payload)
+
+    now = datetime.now()
+ 
+
+    dt_string = now.strftime("%d/%m/%Y %H:%M")
+
+#print(response.text.encode('utf8'))
+
+    json_data_ruaAntonio = json.loads(response.text.encode('utf8'))
+
+    ruaAntonio = "Rua Antonio da Costa Guimaraes"
+    velocidadeAtualAntonio = json_data_ruaAntonio["flowSegmentData"]["currentSpeed"]
+    #velocidadeFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowSpeed"]
+    #tempoviagemAtualLiberdade = json_data_liberdade["flowSegmentData"]["currentTravelTime"]
+    #tempoviagemFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowTravelTime"]
+    LatitudeRuaAntonio= 41.42868663
+    LongitudeRuaAntonio= -8.29874396
+
+
+    myCursor = conn.cursor()
+
+    #Fluxo
+    fluxo = 5 + 759 + 52
+    #Velocidade
+    velocidade = velocidadeAtualAntonio
+    #Pesados
+    pesados = 6
+
+    #CRTN - Fluxo
+    FluxoP25 = 42.2 + 10*math.log10(fluxo)
+
+    #CRTN - Velocidade
+    VelocidadeP25 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
+
+    #CRTN - Total
+    CRTNTotal25 = FluxoP25 + VelocidadeP25
+    print (CRTNTotal25)
+
+    myCursor = conn.cursor()
+
+    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (ruaAntonio, LatitudeRuaAntonio, LongitudeRuaAntonio, velocidadeAtualAntonio, fluxo, CRTNTotal25, dt_string))
+    print("> Dados inseridos! -> " + ruaAntonio + " " + dt_string)
+
+    conn.commit()
+    conn.rollback()
+    conn.close() 
+
+P25()
 
 
 

@@ -299,9 +299,70 @@ def P22():
 
     conn.commit()
     conn.rollback()
-    conn.close() 
+    #conn.close() 
 
 P22()
+
+def P23():
+# P22 - Rua de Camões
+
+    url = "https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=41.44110177,-8.29697371&key=WJgVtZpI5Q5lGFGbqNK1PU3J2N6OvDJY"
+
+    payload = {}
+    headers= {}
+
+    response = requests.request("GET", url, headers=headers, data = payload)
+
+    now = datetime.now()
+ 
+
+    dt_string = now.strftime("%d/%m/%Y %H:%M")
+
+#print(response.text.encode('utf8'))
+
+    json_data_ruaCamoes = json.loads(response.text.encode('utf8'))
+
+    ruaCamoes = "Rua de Camões"
+    velocidadeAtualCamoes = json_data_ruaCamoes["flowSegmentData"]["currentSpeed"]
+    #velocidadeFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowSpeed"]
+    #tempoviagemAtualLiberdade = json_data_liberdade["flowSegmentData"]["currentTravelTime"]
+    #tempoviagemFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowTravelTime"]
+    LatitudeRuaCamoes= 41.44110177
+    LongitudeRuaCamoes= -8.29697371
+
+
+    myCursor = conn.cursor()
+
+    #Fluxo
+    fluxo = 4 + 176 + 2
+    #Velocidade
+    velocidade = velocidadeAtualCamoes
+    #Pesados
+    pesados = 1
+
+    #CRTN - Fluxo
+    FluxoP23 = 42.2 + 10*math.log10(fluxo)
+
+    #CRTN - Velocidade
+    VelocidadeP23 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
+
+    #CRTN - Pavimento
+    PavimentoP23 = 4-0.03*pesados
+
+    #CRTN - Total
+    CRTNTotal23 = FluxoP23 + VelocidadeP23 + PavimentoP23
+    print (CRTNTotal23)
+
+    myCursor = conn.cursor()
+
+    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (ruaCamoes, LatitudeRuaCamoes, LongitudeRuaCamoes, velocidadeAtualCamoes, fluxo, CRTNTotal23, dt_string))
+    print("> Dados inseridos! -> " + ruaCamoes + " " + dt_string)
+
+    conn.commit()
+    conn.rollback()
+    conn.close() 
+
+P23()
 
 
 

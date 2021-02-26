@@ -8,6 +8,8 @@ from datetime import datetime
 
 conn = pymysql.connect(host="localhost", user="root", passwd="BENFICA07", db="guimaraesmap")
 
+#VER CORREÇÃO DECLIVE E PAVIMENTO!!!!
+
 def P241():
 # P24 - Rua da Liberdade
 
@@ -236,9 +238,70 @@ def P25():
 
     conn.commit()
     conn.rollback()
-    conn.close() 
+    #conn.close() 
 
 P25()
+
+def P22():
+# P22 - Rua D.João I
+
+    url = "https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=41.44194625,-8.29893172&key=WJgVtZpI5Q5lGFGbqNK1PU3J2N6OvDJY"
+
+    payload = {}
+    headers= {}
+
+    response = requests.request("GET", url, headers=headers, data = payload)
+
+    now = datetime.now()
+ 
+
+    dt_string = now.strftime("%d/%m/%Y %H:%M")
+
+#print(response.text.encode('utf8'))
+
+    json_data_ruaDJoaoI = json.loads(response.text.encode('utf8'))
+
+    ruaDJoaoI = "Rua D.João I"
+    velocidadeAtualDJoaoI = json_data_ruaDJoaoI["flowSegmentData"]["currentSpeed"]
+    #velocidadeFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowSpeed"]
+    #tempoviagemAtualLiberdade = json_data_liberdade["flowSegmentData"]["currentTravelTime"]
+    #tempoviagemFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowTravelTime"]
+    LatitudeRuaDJoaoI= 41.44194625
+    LongitudeRuaDJoaoI= -8.29893172
+
+
+    myCursor = conn.cursor()
+
+    #Fluxo
+    fluxo = 2 + 34 + 0
+    #Velocidade
+    velocidade = velocidadeAtualDJoaoI
+    #Pesados
+    pesados = 0
+
+    #CRTN - Fluxo
+    FluxoP22 = 42.2 + 10*math.log10(fluxo)
+
+    #CRTN - Velocidade
+    VelocidadeP22 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
+
+    #CRTN - Pavimento
+    PavimentoP22 = 4-0.03*pesados
+
+    #CRTN - Total
+    CRTNTotal22 = FluxoP22 + VelocidadeP22 + PavimentoP22
+    print (CRTNTotal22)
+
+    myCursor = conn.cursor()
+
+    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (ruaDJoaoI, LatitudeRuaDJoaoI, LongitudeRuaDJoaoI, velocidadeAtualDJoaoI, fluxo, CRTNTotal22, dt_string))
+    print("> Dados inseridos! -> " + ruaDJoaoI + " " + dt_string)
+
+    conn.commit()
+    conn.rollback()
+    conn.close() 
+
+P22()
 
 
 

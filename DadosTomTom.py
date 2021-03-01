@@ -10,6 +10,22 @@ conn = pymysql.connect(host="localhost", user="root", passwd="BENFICA07", db="gu
 
 #VER CORREÇÃO DECLIVE E PAVIMENTO!!!!
 
+#Definir hora registo e periodo do dia
+now = datetime.now()
+
+hora = now.hour
+
+dt_string = now.strftime("%d/%m/%Y %H:%M")
+
+if(hora >= 7) and (hora < 20):
+    dia = "Diurno"
+elif (hora >= 20) and (hora < 23):
+    dia = "Entardecer"
+elif (hora < 7):
+    dia = "Noturno"
+
+print(dia)
+
 def P241():
 # P24 - Rua da Liberdade
 
@@ -19,13 +35,6 @@ def P241():
     headers= {}
 
     response = requests.request("GET", url, headers=headers, data = payload)
-
-    now = datetime.now()
- 
-
-    dt_string = now.strftime("%d/%m/%Y %H:%M")
-
-#print(response.text.encode('utf8'))
 
     json_data_liberdade = json.loads(response.text.encode('utf8'))
 
@@ -37,15 +46,28 @@ def P241():
     LatitudeRuaLiberdade= 41.43839131
     LongitudeRuaLiberdade= -8.30116439
 
-
     myCursor = conn.cursor()
 
     #Fluxo
-    fluxo = 10 + 528 + 4
+    if (dia == "Diurno"):
+        fluxo = 10 + 528 + 4
+    elif (dia == "Entardecer"):
+        fluxo = 23 + 425 + 1
+    elif (dia == "Noturno"):
+        fluxo = 4 + 78 + 0
+
     #Velocidade
     velocidade = velocidadeAtualLiberdade
+    
     #Pesados
-    pesados = 1
+    if (dia == "Diurno"):
+        pesados = 1
+    elif (dia == "Entardecer"):
+        pesados = 0
+    elif (dia == "Noturno"):
+        pesados = 0
+    
+    print(pesados)
 
     #CRTN - Fluxo
     FluxoP24 = 42.2 + 10*math.log10(fluxo)
@@ -59,7 +81,7 @@ def P241():
 
     myCursor = conn.cursor()
 
-    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (ruaLiberdade, LatitudeRuaLiberdade, LongitudeRuaLiberdade, velocidadeAtualLiberdade, fluxo, CRTNTotal24, dt_string))
+    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data, PeriodoDia) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (ruaLiberdade, LatitudeRuaLiberdade, LongitudeRuaLiberdade, velocidadeAtualLiberdade, fluxo, CRTNTotal24, dt_string, dia))
     print("> Dados inseridos! -> " + ruaLiberdade + " " + dt_string)
 
     conn.commit()
@@ -78,13 +100,6 @@ def P26():
 
     response = requests.request("GET", url, headers=headers, data = payload)
 
-    now = datetime.now()
- 
-
-    dt_string = now.strftime("%d/%m/%Y %H:%M")
-
-#print(response.text.encode('utf8'))
-
     json_data_djoao = json.loads(response.text.encode('utf8'))
 
     ruaDJoao = "Avenida D João IV - 1"
@@ -94,7 +109,6 @@ def P26():
     #tempoviagemFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowTravelTime"]
     LatitudeDJoao= 41.43555205
     LongitudeDJoao= -8.29508543
-
 
     myCursor = conn.cursor()
 
@@ -117,7 +131,7 @@ def P26():
 
     myCursor = conn.cursor()
 
-    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (ruaDJoao, LatitudeDJoao, LongitudeDJoao, velocidadeAtualDJoao, fluxo, CRTNTotal26, dt_string))
+    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data, PeriodoDia) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (ruaDJoao, LatitudeDJoao, LongitudeDJoao, velocidadeAtualDJoao, fluxo, CRTNTotal26, dt_string, dia))
     print("> Dados inseridos! -> " + ruaDJoao + " " + dt_string)
 
     conn.commit()
@@ -136,13 +150,6 @@ def P261():
 
     response = requests.request("GET", url, headers=headers, data = payload)
 
-    now = datetime.now()
- 
-
-    dt_string = now.strftime("%d/%m/%Y %H:%M")
-
-#print(response.text.encode('utf8'))
-
     json_data_djoao2 = json.loads(response.text.encode('utf8'))
 
     ruaDJoao2 = "Avenida D João IV - 2"
@@ -152,7 +159,6 @@ def P261():
     #tempoviagemFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowTravelTime"]
     LatitudeDJoao2= 41.43919561
     LongitudeDJoao2= -8.29072416
-
 
     myCursor = conn.cursor()
 
@@ -175,7 +181,7 @@ def P261():
 
     myCursor = conn.cursor()
 
-    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (ruaDJoao2, LatitudeDJoao2, LongitudeDJoao2, velocidadeAtualDJoao2, fluxo, CRTNTotal261, dt_string))
+    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data, PeriodoDia) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (ruaDJoao2, LatitudeDJoao2, LongitudeDJoao2, velocidadeAtualDJoao2, fluxo, CRTNTotal261, dt_string, dia))
     print("> Dados inseridos! -> " + ruaDJoao2 + " " + dt_string)
 
     conn.commit()
@@ -194,13 +200,6 @@ def P25():
 
     response = requests.request("GET", url, headers=headers, data = payload)
 
-    now = datetime.now()
- 
-
-    dt_string = now.strftime("%d/%m/%Y %H:%M")
-
-#print(response.text.encode('utf8'))
-
     json_data_ruaAntonio = json.loads(response.text.encode('utf8'))
 
     ruaAntonio = "Rua Antonio da Costa Guimaraes"
@@ -210,7 +209,6 @@ def P25():
     #tempoviagemFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowTravelTime"]
     LatitudeRuaAntonio= 41.42868663
     LongitudeRuaAntonio= -8.29874396
-
 
     myCursor = conn.cursor()
 
@@ -233,7 +231,7 @@ def P25():
 
     myCursor = conn.cursor()
 
-    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (ruaAntonio, LatitudeRuaAntonio, LongitudeRuaAntonio, velocidadeAtualAntonio, fluxo, CRTNTotal25, dt_string))
+    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data, PeriodoDia) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (ruaAntonio, LatitudeRuaAntonio, LongitudeRuaAntonio, velocidadeAtualAntonio, fluxo, CRTNTotal25, dt_string, dia))
     print("> Dados inseridos! -> " + ruaAntonio + " " + dt_string)
 
     conn.commit()
@@ -252,13 +250,6 @@ def P22():
 
     response = requests.request("GET", url, headers=headers, data = payload)
 
-    now = datetime.now()
- 
-
-    dt_string = now.strftime("%d/%m/%Y %H:%M")
-
-#print(response.text.encode('utf8'))
-
     json_data_ruaDJoaoI = json.loads(response.text.encode('utf8'))
 
     ruaDJoaoI = "Rua D.João I"
@@ -268,7 +259,6 @@ def P22():
     #tempoviagemFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowTravelTime"]
     LatitudeRuaDJoaoI= 41.44194625
     LongitudeRuaDJoaoI= -8.29893172
-
 
     myCursor = conn.cursor()
 
@@ -294,7 +284,7 @@ def P22():
 
     myCursor = conn.cursor()
 
-    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (ruaDJoaoI, LatitudeRuaDJoaoI, LongitudeRuaDJoaoI, velocidadeAtualDJoaoI, fluxo, CRTNTotal22, dt_string))
+    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data, PeriodoDia) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (ruaDJoaoI, LatitudeRuaDJoaoI, LongitudeRuaDJoaoI, velocidadeAtualDJoaoI, fluxo, CRTNTotal22, dt_string, dia))
     print("> Dados inseridos! -> " + ruaDJoaoI + " " + dt_string)
 
     conn.commit()
@@ -313,13 +303,6 @@ def P23():
 
     response = requests.request("GET", url, headers=headers, data = payload)
 
-    now = datetime.now()
- 
-
-    dt_string = now.strftime("%d/%m/%Y %H:%M")
-
-#print(response.text.encode('utf8'))
-
     json_data_ruaCamoes = json.loads(response.text.encode('utf8'))
 
     ruaCamoes = "Rua de Camões"
@@ -329,7 +312,6 @@ def P23():
     #tempoviagemFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowTravelTime"]
     LatitudeRuaCamoes= 41.44110177
     LongitudeRuaCamoes= -8.29697371
-
 
     myCursor = conn.cursor()
 
@@ -355,7 +337,7 @@ def P23():
 
     myCursor = conn.cursor()
 
-    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data) VALUES (%s, %s, %s, %s, %s, %s, %s)", (ruaCamoes, LatitudeRuaCamoes, LongitudeRuaCamoes, velocidadeAtualCamoes, fluxo, CRTNTotal23, dt_string))
+    myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data, PeriodoDia) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (ruaCamoes, LatitudeRuaCamoes, LongitudeRuaCamoes, velocidadeAtualCamoes, fluxo, CRTNTotal23, dt_string, dia))
     print("> Dados inseridos! -> " + ruaCamoes + " " + dt_string)
 
     conn.commit()

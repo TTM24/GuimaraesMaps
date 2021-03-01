@@ -67,8 +67,6 @@ def P241():
     elif (dia == "Noturno"):
         pesados = 0
     
-    print(pesados)
-
     #CRTN - Fluxo
     FluxoP24 = 42.2 + 10*math.log10(fluxo)
 
@@ -112,12 +110,24 @@ def P26():
 
     myCursor = conn.cursor()
 
-    #Fluxo
-    fluxo = 6 + 1189 + 60
+     #Fluxo
+    if (dia == "Diurno"):
+        fluxo = 6 + 1189 + 60
+    elif (dia == "Entardecer"):
+        fluxo = 14 + 957 + 11
+    elif (dia == "Noturno"):
+        fluxo = 2 + 176 + 5
+    
     #Velocidade
     velocidade = velocidadeAtualDJoao
+
     #Pesados
-    pesados = 5
+    if (dia == "Diurno"):
+        pesados = 5
+    elif (dia == "Entardecer"):
+        pesados = 1
+    elif (dia == "Noturno"):
+        pesados = 3
 
     #CRTN - Fluxo
     FluxoP26 = 42.2 + 10*math.log10(fluxo)
@@ -163,11 +173,23 @@ def P261():
     myCursor = conn.cursor()
 
     #Fluxo
-    fluxo = 6 + 1189 + 60
+    if (dia == "Diurno"):
+        fluxo = 6 + 1189 + 60
+    elif (dia == "Entardecer"):
+        fluxo = 14 + 957 + 11
+    elif (dia == "Noturno"):
+        fluxo = 2 + 176 + 5
+
     #Velocidade
     velocidade = velocidadeAtualDJoao2
+
     #Pesados
-    pesados = 5
+    if (dia == "Diurno"):
+        pesados = 5
+    elif (dia == "Entardecer"):
+        pesados = 1
+    elif (dia == "Noturno"):
+        pesados = 3
 
     #CRTN - Fluxo
     FluxoP261 = 42.2 + 10*math.log10(fluxo)
@@ -213,11 +235,23 @@ def P25():
     myCursor = conn.cursor()
 
     #Fluxo
-    fluxo = 5 + 759 + 52
+    if (dia == "Diurno"):
+        fluxo = 5 + 759 + 52
+    elif (dia == "Entardecer"):
+        fluxo = 3 + 445 + 15
+    elif (dia == "Noturno"):
+        fluxo = 0 + 81 + 2
+
     #Velocidade
     velocidade = velocidadeAtualAntonio
+    
     #Pesados
-    pesados = 6
+    if (dia == "Diurno"):
+        pesados = 6
+    elif (dia == "Entardecer"):
+        pesados = 3
+    elif (dia == "Noturno"):
+        pesados = 2
 
     #CRTN - Fluxo
     FluxoP25 = 42.2 + 10*math.log10(fluxo)
@@ -263,11 +297,23 @@ def P22():
     myCursor = conn.cursor()
 
     #Fluxo
-    fluxo = 2 + 34 + 0
+    if (dia == "Diurno"):
+        fluxo = 2 + 34 + 0
+    elif (dia == "Entardecer"):
+        fluxo = 4 + 27 + 0
+    elif (dia == "Noturno"):
+        fluxo = 1 + 5 + 0
+
     #Velocidade
     velocidade = velocidadeAtualDJoaoI
+    
     #Pesados
-    pesados = 0
+    if (dia == "Diurno"):
+        pesados = 0
+    elif (dia == "Entardecer"):
+        pesados = 0
+    elif (dia == "Noturno"):
+        pesados = 0
 
     #CRTN - Fluxo
     FluxoP22 = 42.2 + 10*math.log10(fluxo)
@@ -294,7 +340,7 @@ def P22():
 P22()
 
 def P23():
-# P22 - Rua de Camões
+# P23 - Rua de Camões
 
     url = "https://api.tomtom.com/traffic/services/4/flowSegmentData/absolute/10/json?point=41.44110177,-8.29697371&key=WJgVtZpI5Q5lGFGbqNK1PU3J2N6OvDJY"
 
@@ -316,11 +362,23 @@ def P23():
     myCursor = conn.cursor()
 
     #Fluxo
-    fluxo = 4 + 176 + 2
+    if (dia == "Diurno"):
+        fluxo = 4 + 176 + 2
+    elif (dia == "Entardecer"):
+        fluxo = 9 + 142 + 0
+    elif (dia == "Noturno"):
+        fluxo = 1 + 26 + 0
+    
     #Velocidade
     velocidade = velocidadeAtualCamoes
+
     #Pesados
-    pesados = 1
+    if (dia == "Diurno"):
+        pesados = 1
+    elif (dia == "Entardecer"):
+        pesados = 0
+    elif (dia == "Noturno"):
+        pesados = 0
 
     #CRTN - Fluxo
     FluxoP23 = 42.2 + 10*math.log10(fluxo)

@@ -21,7 +21,7 @@ if(hora >= 7) and (hora < 20):
     dia = "Diurno"
 elif (hora >= 20) and (hora < 23):
     dia = "Entardecer"
-elif (hora >= 23):
+elif (hora >= 23) or (hora < 7):
     dia = "Noturno"
 
 print(dia)

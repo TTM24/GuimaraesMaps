@@ -24,7 +24,7 @@ elif (hora >= 20) and (hora < 23):
 elif (hora >= 23) or (hora < 7):
     dia = "Noturno"
 
-print(dia)
+print("Periodo do dia -> " + dia)
 
 def P241():
 # P24 - Rua da Liberdade
@@ -58,6 +58,9 @@ def P241():
 
     #Velocidade
     velocidade = velocidadeAtualLiberdade
+
+    #Declive
+    declive = 2
     
     #Pesados
     if (dia == "Diurno"):
@@ -70,17 +73,20 @@ def P241():
     #CRTN - Fluxo
     FluxoP24 = 42.2 + 10*math.log10(fluxo)
 
+    #CRTN - Declive
+    DecliveP24 = 0.3*declive
+    
     #CRTN - Velocidade
     VelocidadeP24 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
     #CRTN - Total
-    CRTNTotal24 = FluxoP24 + VelocidadeP24
-    print (CRTNTotal24)
+    CRTNTotal24 = FluxoP24 + VelocidadeP24 + DecliveP24
 
     myCursor = conn.cursor()
 
     myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data, PeriodoDia) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (ruaLiberdade, LatitudeRuaLiberdade, LongitudeRuaLiberdade, velocidadeAtualLiberdade, fluxo, CRTNTotal24, dt_string, dia))
     print("> Dados inseridos! -> " + ruaLiberdade + " " + dt_string)
+    print (CRTNTotal24)
 
     conn.commit()
     conn.rollback()
@@ -121,6 +127,9 @@ def P26():
     #Velocidade
     velocidade = velocidadeAtualDJoao
 
+    #Declive
+    declive = 2
+
     #Pesados
     if (dia == "Diurno"):
         pesados = 5
@@ -132,17 +141,20 @@ def P26():
     #CRTN - Fluxo
     FluxoP26 = 42.2 + 10*math.log10(fluxo)
 
+    #CRTN - Declive
+    DecliveP26 = 0.3*declive
+
     #CRTN - Velocidade
     VelocidadeP26 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
     #CRTN - Total
-    CRTNTotal26 = FluxoP26 + VelocidadeP26
-    print (CRTNTotal26)
+    CRTNTotal26 = FluxoP26 + VelocidadeP26 + DecliveP26
 
     myCursor = conn.cursor()
 
     myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data, PeriodoDia) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (ruaDJoao, LatitudeDJoao, LongitudeDJoao, velocidadeAtualDJoao, fluxo, CRTNTotal26, dt_string, dia))
     print("> Dados inseridos! -> " + ruaDJoao + " " + dt_string)
+    print (CRTNTotal26)
 
     conn.commit()
     conn.rollback()
@@ -183,6 +195,9 @@ def P261():
     #Velocidade
     velocidade = velocidadeAtualDJoao2
 
+    #Declive
+    declive = 2
+
     #Pesados
     if (dia == "Diurno"):
         pesados = 5
@@ -194,17 +209,20 @@ def P261():
     #CRTN - Fluxo
     FluxoP261 = 42.2 + 10*math.log10(fluxo)
 
+    #CRTN - Declive
+    DecliveP261 = 0.3*declive
+
     #CRTN - Velocidade
     VelocidadeP261 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
     #CRTN - Total
-    CRTNTotal261 = FluxoP261 + VelocidadeP261
-    print (CRTNTotal261)
+    CRTNTotal261 = FluxoP261 + VelocidadeP261 + DecliveP261
 
     myCursor = conn.cursor()
 
     myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data, PeriodoDia) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (ruaDJoao2, LatitudeDJoao2, LongitudeDJoao2, velocidadeAtualDJoao2, fluxo, CRTNTotal261, dt_string, dia))
     print("> Dados inseridos! -> " + ruaDJoao2 + " " + dt_string)
+    print (CRTNTotal261)
 
     conn.commit()
     conn.rollback()
@@ -244,6 +262,9 @@ def P25():
 
     #Velocidade
     velocidade = velocidadeAtualAntonio
+
+    #Declive
+    declive = 2
     
     #Pesados
     if (dia == "Diurno"):
@@ -256,17 +277,20 @@ def P25():
     #CRTN - Fluxo
     FluxoP25 = 42.2 + 10*math.log10(fluxo)
 
+    #CRTN - Declive
+    DecliveP25 = 0.3*declive
+
     #CRTN - Velocidade
     VelocidadeP25 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
     #CRTN - Total
-    CRTNTotal25 = FluxoP25 + VelocidadeP25
-    print (CRTNTotal25)
-
+    CRTNTotal25 = FluxoP25 + VelocidadeP25 + DecliveP25
+    
     myCursor = conn.cursor()
 
     myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data, PeriodoDia) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (ruaAntonio, LatitudeRuaAntonio, LongitudeRuaAntonio, velocidadeAtualAntonio, fluxo, CRTNTotal25, dt_string, dia))
     print("> Dados inseridos! -> " + ruaAntonio + " " + dt_string)
+    print (CRTNTotal25)
 
     conn.commit()
     conn.rollback()
@@ -306,6 +330,9 @@ def P22():
 
     #Velocidade
     velocidade = velocidadeAtualDJoaoI
+
+    #Declive
+    declive = 2
     
     #Pesados
     if (dia == "Diurno"):
@@ -318,6 +345,9 @@ def P22():
     #CRTN - Fluxo
     FluxoP22 = 42.2 + 10*math.log10(fluxo)
 
+    #CRTN - Declive
+    DecliveP22 = 0.3*declive
+
     #CRTN - Velocidade
     VelocidadeP22 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
@@ -325,13 +355,13 @@ def P22():
     PavimentoP22 = 4-0.03*pesados
 
     #CRTN - Total
-    CRTNTotal22 = FluxoP22 + VelocidadeP22 + PavimentoP22
-    print (CRTNTotal22)
+    CRTNTotal22 = FluxoP22 + VelocidadeP22 + PavimentoP22 + DecliveP22
 
     myCursor = conn.cursor()
 
     myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data, PeriodoDia) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (ruaDJoaoI, LatitudeRuaDJoaoI, LongitudeRuaDJoaoI, velocidadeAtualDJoaoI, fluxo, CRTNTotal22, dt_string, dia))
     print("> Dados inseridos! -> " + ruaDJoaoI + " " + dt_string)
+    print (CRTNTotal22)
 
     conn.commit()
     conn.rollback()
@@ -372,6 +402,9 @@ def P23():
     #Velocidade
     velocidade = velocidadeAtualCamoes
 
+    #Declive
+    declive = 2
+
     #Pesados
     if (dia == "Diurno"):
         pesados = 1
@@ -383,6 +416,9 @@ def P23():
     #CRTN - Fluxo
     FluxoP23 = 42.2 + 10*math.log10(fluxo)
 
+    #CRTN - Declive
+    DecliveP23 = 0.3*declive
+
     #CRTN - Velocidade
     VelocidadeP23 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
@@ -390,13 +426,13 @@ def P23():
     PavimentoP23 = 4-0.03*pesados
 
     #CRTN - Total
-    CRTNTotal23 = FluxoP23 + VelocidadeP23 + PavimentoP23
-    print (CRTNTotal23)
-
+    CRTNTotal23 = FluxoP23 + VelocidadeP23 + PavimentoP23 + DecliveP23
+    
     myCursor = conn.cursor()
 
     myCursor.execute("INSERT INTO ruido_guimaraes(NomeEstrada, Latitude, Longitude, VelocidadeAtual, Fluxo, Ruido, Data, PeriodoDia) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)", (ruaCamoes, LatitudeRuaCamoes, LongitudeRuaCamoes, velocidadeAtualCamoes, fluxo, CRTNTotal23, dt_string, dia))
     print("> Dados inseridos! -> " + ruaCamoes + " " + dt_string)
+    print (CRTNTotal23)
 
     conn.commit()
     conn.rollback()

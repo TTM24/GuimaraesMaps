@@ -46,8 +46,6 @@ def P241():
     LatitudeRuaLiberdade= 41.43839131
     LongitudeRuaLiberdade= -8.30116439
 
-    myCursor = conn.cursor()
-
     #Fluxo
     if (dia == "Diurno"):
         fluxo = 10 + 528 + 4
@@ -113,8 +111,6 @@ def P26():
     #tempoviagemFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowTravelTime"]
     LatitudeDJoao= 41.43555205
     LongitudeDJoao= -8.29508543
-
-    myCursor = conn.cursor()
 
      #Fluxo
     if (dia == "Diurno"):
@@ -182,8 +178,6 @@ def P261():
     LatitudeDJoao2= 41.43919561
     LongitudeDJoao2= -8.29072416
 
-    myCursor = conn.cursor()
-
     #Fluxo
     if (dia == "Diurno"):
         fluxo = 6 + 1189 + 60
@@ -250,8 +244,6 @@ def P25():
     LatitudeRuaAntonio= 41.42868663
     LongitudeRuaAntonio= -8.29874396
 
-    myCursor = conn.cursor()
-
     #Fluxo
     if (dia == "Diurno"):
         fluxo = 5 + 759 + 52
@@ -317,8 +309,6 @@ def P22():
     #tempoviagemFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowTravelTime"]
     LatitudeRuaDJoaoI= 41.44194625
     LongitudeRuaDJoaoI= -8.29893172
-
-    myCursor = conn.cursor()
 
     #Fluxo
     if (dia == "Diurno"):
@@ -388,8 +378,6 @@ def P23():
     #tempoviagemFreeLiberdade = json_data_liberdade["flowSegmentData"]["freeFlowTravelTime"]
     LatitudeRuaCamoes= 41.44110177
     LongitudeRuaCamoes= -8.29697371
-
-    myCursor = conn.cursor()
 
     #Fluxo
     if (dia == "Diurno"):

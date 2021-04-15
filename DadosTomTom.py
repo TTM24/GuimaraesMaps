@@ -78,7 +78,7 @@ def P241():
     VelocidadeP24 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
     #CRTN - Total
-    CRTNTotal24 = FluxoP24 + VelocidadeP24 + DecliveP24
+    CRTNTotal24 = (FluxoP24 + VelocidadeP24 + DecliveP24) - 3
 
     myCursor = conn.cursor()
 
@@ -144,7 +144,7 @@ def P26():
     VelocidadeP26 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
     #CRTN - Total
-    CRTNTotal26 = FluxoP26 + VelocidadeP26 + DecliveP26
+    CRTNTotal26 = (FluxoP26 + VelocidadeP26 + DecliveP26) - 3
 
     myCursor = conn.cursor()
 
@@ -210,7 +210,7 @@ def P261():
     VelocidadeP261 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
     #CRTN - Total
-    CRTNTotal261 = FluxoP261 + VelocidadeP261 + DecliveP261
+    CRTNTotal261 = (FluxoP261 + VelocidadeP261 + DecliveP261) - 3
 
     myCursor = conn.cursor()
 
@@ -276,7 +276,7 @@ def P25():
     VelocidadeP25 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
     #CRTN - Total
-    CRTNTotal25 = FluxoP25 + VelocidadeP25 + DecliveP25
+    CRTNTotal25 = (FluxoP25 + VelocidadeP25 + DecliveP25) - 3
     
     myCursor = conn.cursor()
 
@@ -345,7 +345,7 @@ def P22():
     PavimentoP22 = 4-0.03*pesados
 
     #CRTN - Total
-    CRTNTotal22 = FluxoP22 + VelocidadeP22 + PavimentoP22 + DecliveP22
+    CRTNTotal22 = (FluxoP22 + VelocidadeP22 + PavimentoP22 + DecliveP22) - 3
 
     myCursor = conn.cursor()
 
@@ -414,7 +414,7 @@ def P23():
     PavimentoP23 = 4-0.03*pesados
 
     #CRTN - Total
-    CRTNTotal23 = FluxoP23 + VelocidadeP23 + PavimentoP23 + DecliveP23
+    CRTNTotal23 = (FluxoP23 + VelocidadeP23 + PavimentoP23 + DecliveP23) - 3
     
     myCursor = conn.cursor()
 

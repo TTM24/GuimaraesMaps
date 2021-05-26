@@ -68,7 +68,7 @@ def P241():
     elif (dia == "Noturno"):
         pesados = 0
     
-    #CRTN - Fluxo
+    #CRTN - Fluxo 
     FluxoP24 = 42.2 + 10*math.log10(fluxo)
 
     #CRTN - Declive
@@ -77,7 +77,7 @@ def P241():
     #CRTN - Velocidade
     VelocidadeP24 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
-    #CRTN - Total
+    #CRTN - Total - Leq
     CRTNTotal24 = (FluxoP24 + VelocidadeP24 + DecliveP24) - 3
 
     myCursor = conn.cursor()
@@ -143,7 +143,7 @@ def P26():
     #CRTN - Velocidade
     VelocidadeP26 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
-    #CRTN - Total
+    #CRTN - Total - Leq
     CRTNTotal26 = (FluxoP26 + VelocidadeP26 + DecliveP26) - 3
 
     myCursor = conn.cursor()
@@ -209,7 +209,7 @@ def P261():
     #CRTN - Velocidade
     VelocidadeP261 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
-    #CRTN - Total
+    #CRTN - Total - Leq
     CRTNTotal261 = (FluxoP261 + VelocidadeP261 + DecliveP261) - 3
 
     myCursor = conn.cursor()
@@ -275,7 +275,7 @@ def P25():
     #CRTN - Velocidade
     VelocidadeP25 = 33*math.log10(velocidade + 40 + (500/velocidade)) + 10*math.log10(1 + (5*pesados/velocidade)) - 68.8
 
-    #CRTN - Total
+    #CRTN - Total - Leq
     CRTNTotal25 = (FluxoP25 + VelocidadeP25 + DecliveP25) - 3
     
     myCursor = conn.cursor()
@@ -344,7 +344,7 @@ def P22():
     #CRTN - Pavimento
     PavimentoP22 = 4-0.03*pesados
 
-    #CRTN - Total
+    #CRTN - Total - Leq
     CRTNTotal22 = (FluxoP22 + VelocidadeP22 + PavimentoP22 + DecliveP22) - 3
 
     myCursor = conn.cursor()
@@ -413,7 +413,7 @@ def P23():
     #CRTN - Pavimento
     PavimentoP23 = 4-0.03*pesados
 
-    #CRTN - Total
+    #CRTN - Total - Leq
     CRTNTotal23 = (FluxoP23 + VelocidadeP23 + PavimentoP23 + DecliveP23) - 3
     
     myCursor = conn.cursor()
@@ -427,6 +427,4 @@ def P23():
     conn.close() 
 
 P23()
-
-
 
